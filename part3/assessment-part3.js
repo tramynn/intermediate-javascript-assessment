@@ -13,8 +13,14 @@
 // return the result of your updateAnimal invocation
 
 // CODE HERE...
-
-
+function callBinding(magicAnimals, updateAnimal, id) {
+  // find index
+  let foundAnimal = magicAnimals.findIndex(animal => animal.id = id);
+  // bind
+  let updateAnimalById = updateAnimal.bind(foundAnimal);
+  // call
+  return updateAnimalById("Trogdor");
+}
 
 // *************
 // * PROBLEM 2 *
@@ -28,7 +34,12 @@
 // return the result of your updateAnimal invocation
 
 // CODE HERE...
-
+function applyBinding(magicAnimals, updateAnimal, id) {
+  // find index
+  let foundAnimal = magicAnimals.findIndex(animal => animal.id = id);
+  let updatedAnimal = updateAnimal.apply(magicAnimals[foundAnimal], ["being majestic", "eating rainbows"]);
+  return updatedAnimal;
+}
 
 
 // *************
@@ -48,7 +59,20 @@
 var foo;
 
 // CODE HERE...
+// function promiseMe($q) {
+//   return new Promise(function () {
+//     setTimeout(() => resolve(20))
+//   }).then(function ($q) {})
+// }
 
+function promiseMe($q) {
+  return new Promise(resolve => {
+    setTimeout(function () {
+      foo = 'bar';
+      resolve(foo);
+    }, 20);
+  });
+}
 
 
 // *************
@@ -64,3 +88,8 @@ var foo;
 // and then resolve the array as you complete your promise.
 
 // CODE HERE...
+function emailList($q, $http) {
+  return new Promise(resolve => {
+
+  })
+}

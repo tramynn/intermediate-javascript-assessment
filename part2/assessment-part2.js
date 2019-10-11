@@ -42,11 +42,16 @@ function noWeakLink() {
   return $http({
     method: 'GET',
     url: '/api/users'
+  }).then(response => {
+    firstUser = response.data[0];
+    return firstUser;
+  }).then(response => {
+    thirdUser = response.data[2];
+    return response.data[9];
+  }).catch(error => {
+    console.log(error);
   })
-  // CODE HERE...
-
 }
-
 
 
 // *************
@@ -70,11 +75,10 @@ var elephant = {
   name: 'Horton'
 }
 function large() {
-
   return 'My name is ' + this.name + ' and I am very heavy!'
 }
 // CODE HERE...
-
+var boundToElephant = large.bind(elephant);
 
 
 // *************
@@ -88,8 +92,9 @@ function large() {
 // and return the bound function.
 
 // CODE HERE...
-
-
+function deathStar(capacity, crew) {
+  return capacity.bind(crew);
+}
 
 // *************
 // * PROBLEM 4 *
@@ -103,6 +108,13 @@ function large() {
 // The closure function will return the combined value of assets and liabilities.
 
 // CODE HERE...
+function accountingOffice(assets) {
+  function accountant(liabilities) {
+    return assets += liabilities
+  }
+  return accountant;
+}
+
 
 
 
@@ -128,7 +140,16 @@ function large() {
 // };
 
 // CODE HERE...
-
+function forgetter(name) {
+  let remembered = [];
+  return function rememberall(item) {
+    remembered.push(item);
+    return {
+      name,
+      remember: remembered
+    };
+  };
+}
 
 
 // *************
@@ -156,3 +177,47 @@ function large() {
 // NOTE: Neither hunger nor danger should be able to exceed 100 or drop below 0.
 
 // CODE HERE...
+function frodo(startingHungerValue, startingDangerValue) {
+  let hunger = startingHungerValue;
+  let danger = startingDangerValue;
+
+
+  return {
+    dinnerOverFire: () => {
+      hunger -= 25;
+      danger += 40;
+      if (hunger < 0) {
+        hunger = 0;
+      } else if (hunger > 100) {
+        hunger = 100;
+      }
+      if (danger < 0) {
+        danger = 0;
+      } else if (danger > 100) {
+        danger = 100;
+      }
+      return {
+        hunger,
+        danger
+      }
+    },
+    hidingInBush: () => {
+      hunger += 35;
+      danger -= 20;
+      if (hunger < 0) {
+        hunger = 0;
+      } else if (hunger > 100) {
+        hunger = 100;
+      }
+      if (danger < 0) {
+        danger = 0;
+      } else if (danger > 100) {
+        danger = 100;
+      }
+      return {
+        hunger,
+        danger
+      }
+    }
+  }
+}
